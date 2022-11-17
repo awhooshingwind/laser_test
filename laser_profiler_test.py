@@ -10,27 +10,47 @@ from scipy.optimize import curve_fit
 capture = cv2.VideoCapture(0)
 (grabbed, frame) = capture.read()
 gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+capture.release()
 
+
+
+# gray = gray[100:400,200:500]
 M = measure.moments(gray)
 centroid = (M[1, 0] / M[0, 0], M[0, 1] / M[0, 0])
 cen = np.ceil(centroid)
 
+# Auto Slice (using moments)
+cenh = cen[0]
+cenv = cen[1]
+offset = 15
+im_slice = gray[int(cenh-offset-10):int(cenh+offset), int(cenv-offset-5):int(cenv+offset)]
 
-im = gray[200:240,310:340]
+# # Manual Slice Tuning
+# slice_min = 200
+# slice_max = 250
+# y_slice = 320
 
-# im = np.asarray(im).astype(float)
+# im_slice = gray[slice_min:slice_max, y_slice-20:y_slice+20]
+
+# moments sliced
+M_slice = measure.moments(im_slice)
+cen_slice = ((M_slice[1, 0] / M_slice[0, 0], M_slice[0, 1] / M_slice[0, 0]))
+cen = np.ceil(cen_slice)
+
+im = im_slice
+
 if len(im.shape) > 2:
     im = im.mean(axis=-1)
     
 def gaussianbeam(x, a, m, w, offs):
     return a*np.exp(-2*(x-m)**2/w**2) + offs
 
-
-
 # pix_len = args.pix_len
 # Pow = args.pow if args.pow is not None else np.nan
-pix_len = im.shape[0]*im.shape[1]
-Pow = 20
+# pix_len = im.shape[0]*im.shape[1]
+pix_len = 0.00026
+
+Pow = 100
 
 Isat = 6.26 # mW/cm^2, Na D2 transition
 
@@ -78,11 +98,11 @@ print(text)
 print("Plotting: ")
 
 from matplotlib.patches import Ellipse
-fig, [[ax_y, ax_im], [ax_text, ax_x]] = plt.subplots(2,2,  figsize=(12,12),
+fig, [[ax_y, ax_im], [ax_text, ax_x]] = plt.subplots(2,2,  figsize=(10,7),
                                              gridspec_kw={'height_ratios':[2,1], 'width_ratios':[1,2]},)
     
-ax_im.imshow(im, origin='lower')
-ax_im.axis('off')
+ax_im.imshow(im)
+# ax_im.axis('off')
 
 ax_im.get_shared_x_axes().join(ax_im, ax_x)
 ax_im.get_shared_y_axes().join(ax_im, ax_y)
@@ -91,9 +111,9 @@ ax_im.get_shared_y_axes().join(ax_im, ax_y)
 
 ax_x.plot(x, im.sum(0))
 ax_x.plot(x, gaussianbeam(x, *px), 'r')
-# ax_x.plot(gaussian_filter1d(gray[100:340, 320], 1), label='1d filter')
+# ax_x.legend()
 ax_x.grid()
-ax_x.legend()
+
 
 
 ax_y.plot(im.sum(1), y)
@@ -106,3 +126,24 @@ ax_im.add_patch(e)
 ax_text.text(-0.05, 0.6, text, ha='left', va='center', fontdict={'family': 'monospace', 'size': 14})
 ax_text.axis('off')
 plt.show()
+
+# 3D, needs tuning
+from skimage.transform import rescale, resize, downscale_local_mean
+
+fig3d = plt.figure()
+ax3d = fig3d.add_subplot(projection='3d')
+
+# downscaling has a "smoothing" effect
+image = im
+# im3d = resize(image, (image.shape[0] // 4, image.shape[1] // 4),
+#                        anti_aliasing=True)
+im3d = im
+
+# create the x and y coordinate arrays (here we just use pixel indices)
+xx, yy = np.mgrid[0:im3d.shape[0], 0:im3d.shape[1]]
+
+ax3d.plot_surface(xx, yy, im3d ,rstride=1, cstride=1, cmap='Reds',
+        linewidth=0)
+plt.show()
+
+
