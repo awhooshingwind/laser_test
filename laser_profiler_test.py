@@ -2,7 +2,7 @@ import numpy as np
 
 import matplotlib.pyplot as plt
 import cv2
-from scipy.ndimage import gaussian_filter1d
+# from scipy.ndimage import gaussian_filter1d
 from skimage import measure
 # from PIL import Image
 from scipy.optimize import curve_fit
@@ -13,7 +13,6 @@ gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 capture.release()
 
 
-
 # gray = gray[100:400,200:500]
 M = measure.moments(gray)
 centroid = (M[1, 0] / M[0, 0], M[0, 1] / M[0, 0])
@@ -22,7 +21,7 @@ cen = np.ceil(centroid)
 # Auto Slice (using moments)
 cenh = cen[0]
 cenv = cen[1]
-offset = 15
+offset = 50
 im_slice = gray[int(cenh-offset-10):int(cenh+offset), int(cenv-offset-5):int(cenv+offset)]
 
 # # Manual Slice Tuning
@@ -104,8 +103,8 @@ fig, [[ax_y, ax_im], [ax_text, ax_x]] = plt.subplots(2,2,  figsize=(10,7),
 ax_im.imshow(im)
 # ax_im.axis('off')
 
-ax_im.get_shared_x_axes().join(ax_im, ax_x)
-ax_im.get_shared_y_axes().join(ax_im, ax_y)
+# ax_im.get_shared_x_axes().join(ax_im, ax_x)
+# ax_im.get_shared_y_axes().join(ax_im, ax_y)
 
 
 
@@ -145,5 +144,3 @@ xx, yy = np.mgrid[0:im3d.shape[0], 0:im3d.shape[1]]
 ax3d.plot_surface(xx, yy, im3d ,rstride=1, cstride=1, cmap='Reds',
         linewidth=0)
 plt.show()
-
-

@@ -23,7 +23,6 @@ capture = cv2.VideoCapture(0)
 (grabbed, frame) = capture.read()
 gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
-
 # # moments subset
 # gray = gray[200:240,290:330]
 
@@ -93,12 +92,13 @@ gaussLine, = ax[0].plot(x, np.zeros((slice_max-slice_min, 1)), c='b', lw=lw/2, l
 
 ax[0].legend()
 plt.ion()
-plt.show()
 plt.tight_layout()
 plt.legend()
 plt.grid()
+plt.show()
 
 # Main Loop
+
 # Grab, process, and display video frames. Update plot line object(s).
 while True:
     (grabbed, frame) = capture.read()
@@ -117,9 +117,11 @@ while True:
     lineGrayCenter.set_ydata(im_cen_slice)
     gaussLine.set_ydata(gaussian_filter1d(im_slice, sigma))
     fig.canvas.draw()
+    plt.pause(0.1)
 
-    # Press Q to quit
-    if cv2.waitKey(1) & 0xFF == ord('q'):
+    # Press Q or Esc to quit
+    key = cv2.waitKey(1)
+    if key == 27 or key == 113:
         plt.close()
         break
 
