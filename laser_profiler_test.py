@@ -2,7 +2,7 @@ import numpy as np
 
 import matplotlib.pyplot as plt
 import cv2
-# from scipy.ndimage import gaussian_filter1d
+
 from skimage import measure
 # from PIL import Image
 from scipy.optimize import curve_fit
@@ -13,23 +13,27 @@ gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 capture.release()
 
 
-# gray = gray[100:400,200:500]
+
 M = measure.moments(gray)
 centroid = (M[1, 0] / M[0, 0], M[0, 1] / M[0, 0])
 cen = np.ceil(centroid)
 
+# Manual Slice Tuning
+# slice_min = 180
+# slice_max = 280
+# y_slice = 320
+
+
+# im_slice = gray[slice_min:slice_max, y_slice-15:y_slice+15]
+
+
 # Auto Slice (using moments)
 cenh = cen[0]
 cenv = cen[1]
-offset = 50
-im_slice = gray[int(cenh-offset-10):int(cenh+offset), int(cenv-offset-5):int(cenv+offset)]
+offset = 40
+im_slice = gray[int(cenh-offset):int(cenh+offset), int(cenv-offset):int(cenv+offset)]
 
-# # Manual Slice Tuning
-# slice_min = 200
-# slice_max = 250
-# y_slice = 320
 
-# im_slice = gray[slice_min:slice_max, y_slice-20:y_slice+20]
 
 # moments sliced
 M_slice = measure.moments(im_slice)
@@ -49,7 +53,7 @@ def gaussianbeam(x, a, m, w, offs):
 # pix_len = im.shape[0]*im.shape[1]
 pix_len = 0.00026
 
-Pow = 100
+Pow = 2
 
 Isat = 6.26 # mW/cm^2, Na D2 transition
 
@@ -144,3 +148,5 @@ xx, yy = np.mgrid[0:im3d.shape[0], 0:im3d.shape[1]]
 ax3d.plot_surface(xx, yy, im3d ,rstride=1, cstride=1, cmap='Reds',
         linewidth=0)
 plt.show()
+
+

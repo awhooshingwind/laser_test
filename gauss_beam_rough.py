@@ -23,6 +23,7 @@ capture = cv2.VideoCapture(0)
 (grabbed, frame) = capture.read()
 gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
+
 # # moments subset
 # gray = gray[200:240,290:330]
 
@@ -35,9 +36,9 @@ cen = np.ceil(centroid)
 
 
 # Manual Slice Tuning
-slice_min = 200
-slice_max = 250
-y_slice = 315
+slice_min = 180
+slice_max = 280
+y_slice = 335
 
 sigma = 4
 
@@ -46,7 +47,7 @@ sigma = 4
 # Auto Slice (using moments)
 cenh = cen[0]
 cenv = cen[1]
-offset = 20
+offset = 40
 im_slice = gray[int(cenh-offset):int(cenh+offset), int(cenv-offset):int(cenv+offset)]
 
 # Subset moments
@@ -92,13 +93,12 @@ gaussLine, = ax[0].plot(x, np.zeros((slice_max-slice_min, 1)), c='b', lw=lw/2, l
 
 ax[0].legend()
 plt.ion()
+plt.show()
 plt.tight_layout()
 plt.legend()
 plt.grid()
-plt.show()
 
 # Main Loop
-
 # Grab, process, and display video frames. Update plot line object(s).
 while True:
     (grabbed, frame) = capture.read()
@@ -106,8 +106,9 @@ while True:
         break
 
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    # Display video feed
     cv2.imshow('Grayscale', gray)
-    # print(gray.shape)
+    
     im_cen_slice = gray[slice_min:slice_max, int(cen[1])]
     im_slice = gray[slice_min:slice_max, y_slice]
     # im_slice = gray[slice_min:slice_max, y_slice-20:y_slice+20]
@@ -117,11 +118,9 @@ while True:
     lineGrayCenter.set_ydata(im_cen_slice)
     gaussLine.set_ydata(gaussian_filter1d(im_slice, sigma))
     fig.canvas.draw()
-    plt.pause(0.1)
 
-    # Press Q or Esc to quit
-    key = cv2.waitKey(1)
-    if key == 27 or key == 113:
+    # Press Q to quit
+    if cv2.waitKey(1) & 0xFF == ord('q'):
         plt.close()
         break
 
