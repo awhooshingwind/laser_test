@@ -10,3 +10,7 @@
 * Even cheaper, needs more tinkering [DLP LCR2000](https://www.ti.com/tool/DLPDLCR2000EVM)
 * More DIY approach [DLP230GP](https://www.ti.com/product/DLP230GP)
 * Lower resolution and  cheaper DIY DMD only [DLP160](https://www.ti.com/product/DLP160CP#order-quality)
+
+## Other Resources
+* [TI DMD design planning](https://www.ti.com/tool/DLPDLCR230NPEVM)
+* 
