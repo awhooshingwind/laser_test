@@ -15,7 +15,7 @@
  
  #### Needs host processor (RaspPi or similiar to interface) 
  
-* Cheaper plug-and-play [DLP 230NP](https://www.ti.com/tool/DLPDLCR230NPEVM) **~300** *just EVM, not including RaspPi*
+* Cheaper plug-and-play [DLP 230NP](https://www.ti.com/tool/DLPDLCR230NPEVM) **~3$00** *just EVM, not including RaspPi (range from $30-$100)*
   - 0.23" array diagonal, 960x540 mirror array, 5.4 um mirror pitch
   - Smaller (81mm x 87mm)
   - [User Guide](https://www.ti.com/lit/ug/dlpu103a/dlpu103a.pdf?ts=1674000328384&ref_url=https%253A%252F%252Fwww.ti.com%252Ftool%252FDLPDLCR230NPEVM)
@@ -29,15 +29,18 @@ Might be possible to work around needing a host processor with USB-I2C dongle...
 
 **Caveats: **
 
-* DMD hidden in optics module, some might be more accessible than others...
+* DMD contained in optics module, some might be more accessible than others...
+* Raspberry Pi supply has been low, but should be recovering first part of this year
 
 ### HomeBrew Solutions
 
 * More DIY approach [DLP230GP](https://www.ti.com/product/DLP230GP)
-  
-* Lower resolution and cheaper (DMD only) [DLP160](https://www.ti.com/product/DLP160CP#order-quality)
+  - Just one mirror linked, would also need driver chips, etc.
 
-Caveats: Need to design/build a circuit to control DMD properly...plus a way to interface with it...or spring for standalone EVM board ~$1000
+**Caveats: **
+* Need to design/build a circuit to control DMD properly...plus a way to interface with it...
+* Might allow for more custom configurations
+* Not purchasing unneeded optics engines
 
 ---
 
