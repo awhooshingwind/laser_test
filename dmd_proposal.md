@@ -15,7 +15,7 @@
  
  #### Needs host processor (RaspPi or similiar to interface) 
  
-* Cheaper plug-and-play [DLP 230NP](https://www.ti.com/tool/DLPDLCR230NPEVM) **~3$00** *just EVM, not including RaspPi (range from $30-$100)*
+* Cheaper plug-and-play [DLP 230NP](https://www.ti.com/tool/DLPDLCR230NPEVM) **~$300** *just EVM, not including RaspPi (range from $30-$100)*
   - 0.23" array diagonal, 960x540 mirror array, 5.4 um mirror pitch
   - Smaller (81mm x 87mm)
   - [User Guide](https://www.ti.com/lit/ug/dlpu103a/dlpu103a.pdf?ts=1674000328384&ref_url=https%253A%252F%252Fwww.ti.com%252Ftool%252FDLPDLCR230NPEVM)
