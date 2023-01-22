@@ -76,6 +76,8 @@ Current 'testing' workflow:
 3. Adjust bitmap 'filter' image
 4. Repeat and visually compare results
 
+The code is pretty ad hoc thrown together right now, but it makes more sense to adapt this into a better version, based on what the DMD use case will be - I'll probably need some advice on how to program the optics portion (how and what types of corrections to apply to laser profile, or what sort of patterns to generate if the goal is make optical trap potentials, etc.  )
+
 ---
 
 ## Relevant Papers
