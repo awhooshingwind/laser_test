@@ -34,13 +34,47 @@ Might be possible to work around needing a host processor with USB-I2C dongle...
 
 ### HomeBrew Solutions
 
-* More DIY approach [DLP230GP](https://www.ti.com/product/DLP230GP)
+* DIY approach [DLP230GP](https://www.ti.com/product/DLP230GP)
   - Just one mirror linked, would also need driver chips, etc.
 
 **Caveats: **
-* Need to design/build a circuit to control DMD properly...plus a way to interface with it...
+* Need to design/build an analog and digital circuit to control DMD properly...plus a way to interface with it...
 * Might allow for more custom configurations
 * Not purchasing unneeded optics engines
+
+### Conclusions 
+
+Best module will be usage dependent, more complicated ML will likely want a computer with more processing power to run efficiently - bigger concern is required mirror size/number of mirrors for experiment.
+
+
+## Progress/Guidance
+
+A brief summary of what the very rough code does so far, what I think it could do - with some assistance on how to approach the optics
+
+### Code Demo
+
+* [Repo Link](https://github.com/awhooshingwind/laser_test)
+
+Basically consists of three modules, which would later becomes 'modes' of the running app - a monitoring mode, a laser profiler (fits a gaussian profile curve), and a bitmap image generator.
+
+* Monitor:
+  - Plots intensity of a sliced range in real time
+  - Displays sliced range on img
+  - Fits a gaussian probability curve to intensity curve (slow, not useful, but could be replaced with gaussian profile fit from other module)
+
+* Laser Profiler:
+  - adaptation of a laser profiler from github
+  - would need advice on how to appropriately use parameters, might not even need directly (depending on goal)
+  - added a 3d surface plot of intensity from camera data
+
+* Bitmap Maker
+  - rough implementation to manually generate and save bitmaps to explore different effects of mirror configuration
+
+Current 'testing' workflow:
+1. Use monitor mode to 'find' slicing range (could be automated, even more easily when things are in fixed positions)
+2. Take a laser profile of brightest point (based on slicing range)
+3. Adjust bitmap 'filter' image
+4. Repeat and visually compare results
 
 ---
 
@@ -48,9 +82,11 @@ Might be possible to work around needing a host processor with USB-I2C dongle...
 
 * [DMD as spatial light modulator](https://opg.optica.org/ao/fulltext.cfm?uri=ao-60-2-465&id=446312)
   - detailed and practical info about DMD mount/optical set up
+
 * [Optical Potentials with DMD and  superluminescent diode](https://journals.aps.org/prresearch/pdf/10.1103/PhysRevResearch.3.033241)
   - using SLD as light source for higher fidelity imaging on atoms
   - more comparison between laser + DMD vs. SLD + DMD (favoring SLD)
+
 * [DMD controlled optical tweezers](https://iopscience.iop.org/article/10.1088/1367-2630/aaa634#njpaaa634bib21)
   - using older DMD to trap/transport atoms with holographically generated optical tweezers
   - more detailed discussion of optics/theory for DMD traps
