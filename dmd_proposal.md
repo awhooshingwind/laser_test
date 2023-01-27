@@ -94,6 +94,8 @@ The code is pretty ad hoc thrown together right now, but it makes more sense to 
   - more detailed discussion of optics/theory for DMD traps
 
 ## Other Resources
+* [Gerchberg-Saxton](https://en.wikipedia.org/wiki/Gerchberg%E2%80%93Saxton_algorithm)
+* [Floyd-Steinberg dithering](https://en.wikipedia.org/wiki/Floyd%E2%80%93Steinberg_dithering)
 * [TI DMD design planning](https://www.ti.com/design-resources/embedded-development/dlp-chip/display-and-projection.html)
 * [TI Comparison Sheet](https://www.ti.com/lit/sg/sprt736d/sprt736d.pdf?ts=1674164293371)
 * [TI PCB Design Requirements](https://www.ti.com/seclit/an/dlpa071/dlpa071.pdf?ts=1673997424169&ref_url=https%253A%252F%252Fwww.ti.com%252Fdesign-resources%252Fembedded-development%252Fdlp-chip%252Fdisplay-and-projection.html)
